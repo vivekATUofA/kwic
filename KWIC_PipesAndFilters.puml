@@ -3,14 +3,14 @@ title KWIC - Pipes and Filters Architecture
 
 actor User
 
-rectangle "Input Filter" as Input
-rectangle "Circular Shift Filter" as Shifter
-rectangle "Alphabetizer Filter" as Sorter
-rectangle "Output Filter" as Output
+rectangle InputFilter
+rectangle CircularShiftFilter
+rectangle AlphabetizerFilter
+rectangle OutputFilter
 
-User --> Input : start()
-Input --> Shifter : lineStream
-Shifter --> Sorter : shiftStream
-Sorter --> Output : sortedStream
+User --> InputFilter : starts
+InputFilter --> CircularShiftFilter : sends lines
+CircularShiftFilter --> AlphabetizerFilter : sends shifts
+AlphabetizerFilter --> OutputFilter : sends sorted output
 
 @enduml

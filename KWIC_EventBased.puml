@@ -1,43 +1,27 @@
 @startuml
-title KWIC - Event-Based (Implicit Invocation) Architecture
+title KWIC - Event-Based Architecture
 
 actor User
 
-class KWICMain {
-  +main()
-}
+rectangle "KWICMain" as Main
+rectangle "EventManager" as EventMgr
+rectangle "Input"
+rectangle "CircularShifter"
+rectangle "Alphabetizer"
+rectangle "Output"
 
-class EventManager {
-  +register(event, listener)
-  +trigger(event, data)
-}
+User --> Main : runs
 
-class Input {
-  +onInput()
-}
+Main --> EventMgr : setup
+Main --> Input : creates
+Main --> CircularShifter : creates
+Main --> Alphabetizer : creates
+Main --> Output : creates
 
-class CircularShifter {
-  +onLineAdded()
-}
+Input --> EventMgr : triggers "line_added"
+EventMgr --> CircularShifter : notifies "line_added"
 
-class Alphabetizer {
-  +onShiftsGenerated()
-}
+CircularShifter --> EventMgr : triggers "shifts_generated"
+EventMgr --> Alphabetizer : notifies "shifts_generated"
 
-class Output {
-  +onSorted()
-}
-
-User --> KWICMain : run()
-
-KWICMain --> EventManager
-
-EventManager --> Input : trigger("start")
-Input --> EventManager : trigger("line_added")
-EventManager --> CircularShifter : trigger("line_added")
-CircularShifter --> EventManager : trigger("shifts_generated")
-EventManager --> Alphabetizer : trigger("shifts_generated")
-Alphabetizer --> EventManager : trigger("sorted_ready")
-EventManager --> Output : trigger("sorted_ready")
-
-@enduml
+Alphabetizer --> EventMgr

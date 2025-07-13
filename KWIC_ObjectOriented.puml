@@ -3,26 +3,17 @@ title KWIC - Object-Oriented Architecture
 
 actor User
 
-class KWICMain {
-  +main()
-}
+rectangle "KWICMain" as Main
+rectangle "Input"
+rectangle "CircularShifter"
+rectangle "Alphabetizer"
+rectangle "Output"
 
-class Input {
-  +readLines()
-}
+User --> Main : runs()
 
-class CircularShifter {
-  +generateShifts()
-}
+Main --> Input : readLines()
+Main --> CircularShifter : generateShifts()
+Main --> Alphabetizer : sort()
+Main --> Output : print()
 
-class Alphabetizer {
-  +sort()
-}
-
-class Output {
-  +print()
-}
-
-User --> KWICMain : runs
-
-KWICM
+@enduml
