@@ -1,0 +1,16 @@
+@startuml
+title KWIC - Pipes and Filters Architecture
+
+actor User
+
+rectangle "Input Filter" as Input
+rectangle "Circular Shift Filter" as Shifter
+rectangle "Alphabetizer Filter" as Sorter
+rectangle "Output Filter" as Output
+
+User --> Input : start()
+Input --> Shifter : lineStream
+Shifter --> Sorter : shiftStream
+Sorter --> Output : sortedStream
+
+@enduml

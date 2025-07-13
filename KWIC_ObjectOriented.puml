@@ -1,0 +1,28 @@
+@startuml
+title KWIC - Object-Oriented Architecture
+
+actor User
+
+class KWICMain {
+  +main()
+}
+
+class Input {
+  +readLines()
+}
+
+class CircularShifter {
+  +generateShifts()
+}
+
+class Alphabetizer {
+  +sort()
+}
+
+class Output {
+  +print()
+}
+
+User --> KWICMain : runs
+
+KWICM

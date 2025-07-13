@@ -1,0 +1,23 @@
+@startuml KWIC_SharedMemory
+
+title KWIC - Shared Memory Architecture
+
+actor User
+
+rectangle "KWIC System" {
+  rectangle "Main Controller" as MC {
+    MC --> Input
+    MC --> CircularShift
+    MC --> Alphabetizer
+    MC --> Output
+  }
+
+  rectangle "Shared Data" as SD
+  Input --> SD
+  CircularShift --> SD
+  Alphabetizer --> SD
+  Output --> SD
+}
+
+User --> MC : Run Program
+@enduml
